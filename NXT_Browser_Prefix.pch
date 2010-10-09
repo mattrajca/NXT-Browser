@@ -1,0 +1,10 @@
+//
+// Prefix header for all source files of the 'NXT Browser' target in the 'NXT Browser' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+	#import <NXTKit/NXTKit.h>
+#endif
+
+#define MIN_INT(a, b) (a) > (b) ? (b) : (a)
