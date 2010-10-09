@@ -71,7 +71,7 @@
 
 - (void)cleanupBrowser {
 	[_browsers removeLastObject];
-	[self showBTDeviceSelector];	
+	[self showBTDeviceSelector];
 }
 
 - (BOOL)foundUSBBrick {

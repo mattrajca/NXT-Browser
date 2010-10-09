@@ -7,7 +7,7 @@
 
 #import "BrowserWindowController.h"
 
-@interface NXTBrowserAppDelegate : NSObject < NSApplicationDelegate, MRDeviceDelegate > {
+@interface NXTBrowserAppDelegate : NSObject < NSApplicationDelegate > {
   @private
 	NSMutableArray *_browsers;
 }

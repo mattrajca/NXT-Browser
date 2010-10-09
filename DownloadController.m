@@ -7,8 +7,6 @@
 
 #import "DownloadController.h"
 
-#import <math.h>
-
 @interface DownloadController ()
 
 - (void)openRead;

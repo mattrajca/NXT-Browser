@@ -23,10 +23,10 @@
 - (void)getDeviceInfo;
 
 - (void)loadFiles;
-- (void)handleFileResponse:(MRNXTFileResponse *)response;
+- (void)handleFileResponse:(MRNXTFileResponse *)resp;
 
 - (void)displayDownloadControllerWithDestinationPath:(NSString *)dp filename:(NSString *)fn;
-- (void)selectedDestinationDir:(NSString *)dp;
+- (void)selectedDestinationDirectory:(NSString *)dp;
 
 @end
 
@@ -57,7 +57,7 @@
 		del.filename = [file valueForKey:@"name"];
 		
 		[_device enqueueCommand:del
-				  responseBlock:^(MRNXTResponse *response) {
+				  responseBlock:^(MRNXTResponse *resp) {
 					  
 					  [_files removeObject:file];
 					  
@@ -122,7 +122,8 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 }
 
 - (NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id < NSDraggingInfo >)info
-				 proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation {
+				 proposedRow:(NSInteger)row
+	   proposedDropOperation:(NSTableViewDropOperation)dropOperation {
 	
 	[tableView setDropRow:-1 dropOperation:NSTableViewDropOn];
 	
@@ -172,7 +173,7 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 	
 	MRBluetoothDeviceTransport *t = [[MRBluetoothDeviceTransport alloc] initWithBluetoothDevice:device];
 	
-	_device = [[MRNXTDevice alloc] initWithTransport:t];	
+	_device = [[MRNXTDevice alloc] initWithTransport:t];
 	[_device setDelegate:self];
 	
 	if (![_device open:&error]) {
@@ -205,13 +206,13 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 }
 
 - (void)getDeviceInfo {
-	MRNXTGetDeviceInfoCommand *command = [[MRNXTGetDeviceInfoCommand alloc] init];
+	MRNXTGetDeviceInfoCommand *gc = [[MRNXTGetDeviceInfoCommand alloc] init];
 	
-	[_device enqueueCommand:command
-			  responseBlock:^(MRNXTDeviceInfoResponse *response) {
+	[_device enqueueCommand:gc
+			  responseBlock:^(MRNXTDeviceInfoResponse *resp) {
 				  
 				  NSString *str = [NSString stringWithFormat:@"Connected to %@ with %.2f KB of free space",
-								   response.brickName, response.freeSpace / 1024.0f];
+								   resp.brickName, resp.freeSpace / 1024.0f];
 				  
 				  [_statusLabel setStringValue:str];
 				  
@@ -221,27 +222,27 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 #pragma mark Files
 
 - (void)loadFiles {
-	MRNXTFindFirstCommand *command = [[MRNXTFindFirstCommand alloc] init];
-	command.filename = @"*.*";
+	MRNXTFindFirstCommand *fc = [[MRNXTFindFirstCommand alloc] init];
+	fc.filename = @"*.*";
 	
-	[_device enqueueCommand:command
-			  responseBlock:^(MRNXTFileResponse *response) {
+	[_device enqueueCommand:fc
+			  responseBlock:^(MRNXTFileResponse *resp) {
 				  
-				  [self handleFileResponse:response];
+				  [self handleFileResponse:resp];
 	}];
 }
 
-- (void)handleFileResponse:(MRNXTFileResponse *)response {
-	if (response.status != NXTFileNotFound) {
+- (void)handleFileResponse:(MRNXTFileResponse *)resp {
+	if (resp.status != NXTFileNotFound) {
 		MRNXTFindNextCommand *next = [[MRNXTFindNextCommand alloc] init];
-		next.handle = response.handle;
+		next.handle = resp.handle;
 		
-		[_files addObject:[self fileWithName:response.filename size:response.size]];
+		[_files addObject:[self fileWithName:resp.filename size:resp.size]];
 		
 		[_device enqueueCommand:next
-				  responseBlock:^(MRNXTFileResponse *response) {
+				  responseBlock:^(MRNXTFileResponse *nresp) {
 					  
-					  [self handleFileResponse:response];
+					  [self handleFileResponse:nresp];
 					  
 				  }];
 	}	
@@ -292,7 +293,8 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 					  
 					  NSString *dp = [[[panel URLs] objectAtIndex:0] path];
 					  
-					  [self performSelector:@selector(selectedDestinationDir:) withObject:dp afterDelay:0.0f];
+					  [self performSelector:@selector(selectedDestinationDirectory:)
+								 withObject:dp afterDelay:0.0f];
 					  
 				  }];
 }
@@ -310,7 +312,8 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 					  
 					  NSString *dp = [[[panel URLs] objectAtIndex:0] path];
 					  
-					  [self performSelector:@selector(selectedFileToUpload:) withObject:dp afterDelay:0.0f];
+					  [self performSelector:@selector(selectedFileToUpload:)
+								 withObject:dp afterDelay:0.0f];
 					  
 				  }];
 }
@@ -331,7 +334,7 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 	[_pwc presentAsSheetInWindow:[self window]];
 }
 
-- (void)selectedDestinationDir:(NSString *)dp {
+- (void)selectedDestinationDirectory:(NSString *)dp {
 	[self displayDownloadControllerWithDestinationPath:dp
 											  filename:[self selectedFileName]];
 }

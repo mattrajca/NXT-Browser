@@ -26,7 +26,9 @@
 		  contextInfo:NULL];
 }
 
-- (void)windowDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+- (void)windowDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode
+		 contextInfo:(void *)contextInfo {
+	
 	_callback();
 }
 
@@ -48,7 +50,7 @@
 
 - (void)dismissSheet {
 	[NSApp endSheet:[self window]];
-	[self close];	
+	[self close];
 }
 
 @end
