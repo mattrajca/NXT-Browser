@@ -95,7 +95,7 @@
 				C92816981260ABA000DA6779 /* UploadController.h */,
 				C92816991260ABA000DA6779 /* UploadController.m */,
 			);
-			name = Classes;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
