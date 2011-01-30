@@ -2,7 +2,7 @@
 //  NXTBrowserAppDelegate.m
 //  NXT Browser
 //
-//  Copyright Matt Rajca 2010. All rights reserved.
+//  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
 #import "NXTBrowserAppDelegate.h"
@@ -12,7 +12,7 @@
 @interface NXTBrowserAppDelegate ()
 
 - (void)showBTDeviceSelector;
-- (BOOL)foundUSBBrick;
+- (void)showBrowserWithTransport:(MRDeviceTransport *)transport;
 
 @end
 
@@ -28,7 +28,23 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	if (![self foundUSBBrick]) {
+	NSArray *usbDevices = [MRUSBDeviceEntry matchingDevicesForProductID:0x2 vendorID:0x694];
+	
+	if ([usbDevices count]) {
+		MRUSBDeviceEntry *entry = [usbDevices objectAtIndex:0];
+		
+		NSArray *pipes = [NSArray arrayWithObjects:
+						  [MRUSBDevicePipeDescriptor pipeDescriptorWithTransferType:MRUSBTransferTypeBulk
+																		  direction:MRUSBTransferDirectionIn],
+						  [MRUSBDevicePipeDescriptor pipeDescriptorWithTransferType:MRUSBTransferTypeBulk
+																		  direction:MRUSBTransferDirectionOut], nil];
+		
+		MRUSBDeviceTransport *t = [[MRUSBDeviceTransport alloc] initWithDeviceEntry:entry
+																	   desiredPipes:pipes];
+		
+		[self showBrowserWithTransport:t];
+	}
+	else {
 		[self showBTDeviceSelector];
 	}
 }
@@ -53,16 +69,21 @@
 	}
 	
 	IOBluetoothDevice *firstDevice = [results objectAtIndex:0];
+	MRBluetoothDeviceTransport *t = [[MRBluetoothDeviceTransport alloc] initWithBluetoothDevice:firstDevice];
 	
-	BrowserWindowController *win = [[BrowserWindowController alloc] initWithDevice:firstDevice];
-	[win showWindow:self];
+	[self showBrowserWithTransport:t];
+}
+
+- (void)showBrowserWithTransport:(MRDeviceTransport *)transport {
+	BrowserWindowController *wc = [[BrowserWindowController alloc] initWithDeviceTransport:transport];
+	[wc showWindow:self];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(closedBrowser:)
 												 name:NSWindowWillCloseNotification
-											   object:[win window]];
+											   object:[wc window]];
 	
-	[_browsers addObject:win];
+	[_browsers addObject:wc];
 }
 
 - (void)closedBrowser:(id)sender {
@@ -71,11 +92,7 @@
 
 - (void)cleanupBrowser {
 	[_browsers removeLastObject];
-	[self showBTDeviceSelector];
-}
-
-- (BOOL)foundUSBBrick {
-	return NO;
+	[NSApp terminate:nil];
 }
 
 @end

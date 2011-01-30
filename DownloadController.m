@@ -2,7 +2,7 @@
 //  DownloadController.m
 //  NXT Browser
 //
-//  Copyright Matt Rajca 2010. All rights reserved.
+//  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
 #import "DownloadController.h"
@@ -23,7 +23,7 @@
 @synthesize filename = _filename;
 @synthesize destination = _destination;
 
-#define READ_BLOCK_SIZE 64
+#define READ_BLOCK_SIZE 58
 
 - (void)windowDidLoad {
 	[super windowDidLoad];

@@ -2,7 +2,7 @@
 //  UploadController.m
 //  NXT Browser
 //
-//  Copyright Matt Rajca 2010. All rights reserved.
+//  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
 #import "UploadController.h"
@@ -21,7 +21,7 @@
 @synthesize device = _device;
 @synthesize uploadedFileBlock = _uploadedFileBlock;
 
-#define WRITE_BLOCK_SIZE 64
+#define WRITE_BLOCK_SIZE 58
 
 - (id)initWithSourcePath:(NSString *)aPath {
 	NSParameterAssert(aPath != nil);

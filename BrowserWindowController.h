@@ -2,7 +2,7 @@
 //  BrowserWindowController.h
 //  NXT Browser
 //
-//  Copyright Matt Rajca 2010. All rights reserved.
+//  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
 @class DeleteTableView, ProgressWindowController;
@@ -22,7 +22,7 @@
 @property (nonatomic, assign) IBOutlet NSArrayController *files;
 @property (nonatomic, assign) IBOutlet NSTextField *statusLabel;
 
-- (id)initWithDevice:(IOBluetoothDevice *)device;
+- (id)initWithDeviceTransport:(MRDeviceTransport *)transport;
 
 - (IBAction)uploadFile:(id)sender;
 - (IBAction)downloadFile:(id)sender;

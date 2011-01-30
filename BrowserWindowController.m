@@ -2,7 +2,7 @@
 //  BrowserWindowController.m
 //  NXT Browser
 //
-//  Copyright Matt Rajca 2010. All rights reserved.
+//  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
 #import "BrowserWindowController.h"
@@ -19,7 +19,7 @@
 - (NSString *)selectedFileName;
 - (NSString *)fileNameAtIndex:(NSUInteger)idx;
 
-- (void)setupDevice:(IOBluetoothDevice *)device;
+- (void)setupDeviceTransport:(MRDeviceTransport *)transport;
 - (void)getDeviceInfo;
 
 - (void)loadFiles;
@@ -37,10 +37,10 @@
 @synthesize files = _files;
 @synthesize statusLabel = _statusLabel;
 
-- (id)initWithDevice:(IOBluetoothDevice *)device {
+- (id)initWithDeviceTransport:(MRDeviceTransport *)transport {
 	self = [super initWithWindowNibName:@"BrowserWindow"];
 	if (self) {
-		[self setupDevice:device];
+		[self setupDeviceTransport:transport];
 	}
 	return self;
 }
@@ -168,12 +168,10 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 
 #pragma mark Device
 
-- (void)setupDevice:(IOBluetoothDevice *)device {
+- (void)setupDeviceTransport:(MRDeviceTransport *)transport {
 	NSError *error = nil;
 	
-	MRBluetoothDeviceTransport *t = [[MRBluetoothDeviceTransport alloc] initWithBluetoothDevice:device];
-	
-	_device = [[MRNXTDevice alloc] initWithTransport:t];
+	_device = [[MRNXTDevice alloc] initWithTransport:transport];
 	[_device setDelegate:self];
 	
 	if (![_device open:&error]) {
