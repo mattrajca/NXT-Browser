@@ -11,12 +11,12 @@
 
 @synthesize deleteCallback = _deleteCallback;
 
-- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
-	if ([menuItem action] == @selector(delete:)) {
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem {
+	if ([anItem action] == @selector(delete:)) {
 		return [[self selectedRowIndexes] count] > 0;
 	}
 	
-	return [super validateMenuItem:menuItem];
+	return [super validateUserInterfaceItem:anItem];
 }
 
 - (IBAction)delete:(id)sender {
