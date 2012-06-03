@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,8 +12,8 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		C928169A1260ABA000DA6779 /* UploadController.m in Sources */ = {isa = PBXBuildFile; fileRef = C92816991260ABA000DA6779 /* UploadController.m */; };
-		C92817E01260C81D00DA6779 /* NXTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92817DF1260C81D00DA6779 /* NXTKit.framework */; };
-		C92817FD1260C82900DA6779 /* NXTKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = C92817DF1260C81D00DA6779 /* NXTKit.framework */; };
+		C9619222157C0BD100714DB5 /* NXTKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = C961921E157C0BB600714DB5 /* NXTKit.framework */; };
+		C9619223157C0BD800714DB5 /* NXTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C961921E157C0BB600714DB5 /* NXTKit.framework */; };
 		C979B4E1124CDD2B00F93457 /* IOBluetoothUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C979B4E0124CDD2B00F93457 /* IOBluetoothUI.framework */; };
 		C9A4EA9E1257943A00F774AA /* DownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A4EA9D1257943A00F774AA /* DownloadController.m */; };
 		C9C123CA124C3EAF004A9265 /* BrowserWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9C123C9124C3EAF004A9265 /* BrowserWindow.xib */; };
@@ -23,6 +23,23 @@
 		C9EED81C125693DF0035519C /* ProgressWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EED81B125693DF0035519C /* ProgressWindowController.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C961921D157C0BB600714DB5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9619216157C0BB600714DB5 /* NXTKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = NXTKit;
+		};
+		C9619220157C0BC300714DB5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9619216157C0BB600714DB5 /* NXTKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = NXTKit;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		C979B548124CE1AD00F93457 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -30,7 +47,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C92817FD1260C82900DA6779 /* NXTKit.framework in Copy Frameworks */,
+				C9619222157C0BD100714DB5 /* NXTKit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -51,7 +68,7 @@
 		8D1107320486CEB800E47090 /* NXT Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NXT Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C92816981260ABA000DA6779 /* UploadController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadController.h; sourceTree = "<group>"; };
 		C92816991260ABA000DA6779 /* UploadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadController.m; sourceTree = "<group>"; };
-		C92817DF1260C81D00DA6779 /* NXTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NXTKit.framework; sourceTree = "<group>"; };
+		C9619216157C0BB600714DB5 /* NXTKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NXTKit.xcodeproj; path = NXTKit/NXTKit.xcodeproj; sourceTree = "<group>"; };
 		C979B4E0124CDD2B00F93457 /* IOBluetoothUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetoothUI.framework; path = System/Library/Frameworks/IOBluetoothUI.framework; sourceTree = SDKROOT; };
 		C9A4EA9C1257943A00F774AA /* DownloadController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadController.h; sourceTree = "<group>"; };
 		C9A4EA9D1257943A00F774AA /* DownloadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadController.m; sourceTree = "<group>"; };
@@ -72,7 +89,7 @@
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				C979B4E1124CDD2B00F93457 /* IOBluetoothUI.framework in Frameworks */,
-				C92817E01260C81D00DA6779 /* NXTKit.framework in Frameworks */,
+				C9619223157C0BD800714DB5 /* NXTKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,7 +118,6 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C92817DF1260C81D00DA6779 /* NXTKit.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 				C979B4E0124CDD2B00F93457 /* IOBluetoothUI.framework */,
 			);
@@ -129,6 +145,7 @@
 		29B97314FDCFA39411CA2CEA /* NXT Browser */ = {
 			isa = PBXGroup;
 			children = (
+				C9619216157C0BB600714DB5 /* NXTKit.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -167,6 +184,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C9619217157C0BB600714DB5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C961921E157C0BB600714DB5 /* NXTKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -182,6 +207,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C9619221157C0BC300714DB5 /* PBXTargetDependency */,
 			);
 			name = "NXT Browser";
 			productInstallPath = "$(HOME)/Applications";
@@ -194,8 +220,11 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "NXT Browser" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -206,12 +235,28 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* NXT Browser */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C9619217157C0BB600714DB5 /* Products */;
+					ProjectRef = C9619216157C0BB600714DB5 /* NXTKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* NXT Browser */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C961921E157C0BB600714DB5 /* NXTKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = NXTKit.framework;
+			remoteRef = C961921D157C0BB600714DB5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D1107290486CEB800E47090 /* Resources */ = {
@@ -242,6 +287,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C9619221157C0BC300714DB5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = NXTKit;
+			targetProxy = C9619220157C0BC300714DB5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
@@ -281,7 +334,6 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -323,8 +375,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -337,8 +388,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

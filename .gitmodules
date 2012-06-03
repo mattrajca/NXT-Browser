@@ -1,0 +1,3 @@
+[submodule "NXTKit"]
+	path = NXTKit
+	url = git@github.com:mattrajca/NXTKit.git
