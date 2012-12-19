@@ -10,6 +10,7 @@
 #import "DeleteTableView.h"
 #import "DownloadController.h"
 #import "UploadController.h"
+#import "NXT.h"
 
 @interface BrowserWindowController ()
 
@@ -151,9 +152,31 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 
 - (NSDictionary *)fileWithName:(NSString *)name size:(uint16_t)size {
 	NSString *sizeString = [NSString stringWithFormat:@"%.2f KB", size / 1024.0f];
+    
+    NXTFileType fileType = [self fileTypeFromName:name];
+    NSString *fileTypeString = @"Unknown";
+    switch (fileType) {
+        case NXTFileUserProgram:
+            fileTypeString = NSLocalizedString(@"NXTFileUserProgram", nil);
+            break;
+        case NXTFileSampleProgram:
+            fileTypeString = NSLocalizedString(@"NXTFileSampleProgram", nil);
+            break;
+        case NXTFileSystemProgram:
+            fileTypeString = NSLocalizedString(@"NXTFileSystemProgram", nil);
+            break;
+        case NXTFileSound:
+            fileTypeString = NSLocalizedString(@"NXTFileSound", nil);
+            break;
+        case NXTFileImage:
+            fileTypeString = NSLocalizedString(@"NXTFileImage", nil);
+            break;
+        default:
+            break;
+    }
 	
 	NSDictionary *file = [NSDictionary dictionaryWithObjectsAndKeys:
-						  name, @"name", sizeString, @"size", nil];
+						  name, @"name", sizeString, @"size", fileTypeString, @"type", nil];
 	
 	return file;
 }
@@ -164,6 +187,27 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 
 - (NSString *)fileNameAtIndex:(NSUInteger)idx {
 	return [[[_files arrangedObjects] objectAtIndex:idx] valueForKey:@"name"];
+}
+
+- (NXTFileType)fileTypeFromName:(NSString *) name {
+    if ([name rangeOfString:@".rxe"].location != NSNotFound) {
+        return NXTFileUserProgram;
+	}
+    else if ([name rangeOfString:@".rtm"].location != NSNotFound) {
+        return NXTFileSampleProgram;
+	}
+    else if ([name rangeOfString:@".sys"].location != NSNotFound) {
+        return NXTFileSystemProgram;
+	}
+	else if ([name rangeOfString:@".rso"].location != NSNotFound) {
+        return NXTFileSound;
+	}
+    else if ([name rangeOfString:@".ric"].location != NSNotFound) {
+        return NXTFileImage;
+	}
+    else {
+        return NXTFileUnknown;
+    }
 }
 
 #pragma mark Device
@@ -181,7 +225,7 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 }
 
 - (void)deviceDidOpen:(MRDevice *)aDevice {
-	[_statusLabel setStringValue:@"Loading information..."];
+	[_statusLabel setStringValue:NSLocalizedString(@"LoadingInformation", nil)];
 	
 	[self getDeviceInfo];
 	[self loadFiles];
@@ -209,7 +253,7 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 	[_device enqueueCommand:gc
 			  responseBlock:^(MRNXTDeviceInfoResponse *resp) {
 				  
-				  NSString *str = [NSString stringWithFormat:@"Connected to %@ with %.2f KB of free space",
+				  NSString *str = [NSString stringWithFormat:NSLocalizedString(@"ConnectedStringFormat", nil),
 								   resp.brickName, resp.freeSpace / 1024.0f];
 				  
 				  [_statusLabel setStringValue:str];
@@ -263,13 +307,14 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 	
 	NSString *name = [self selectedFileName];
 	
-	if ([name rangeOfString:@"rxe"].location != NSNotFound) {
+    NXTFileType fileType = [self fileTypeFromName:name];
+	if (NXTFileUserProgram == fileType || NXTFileSampleProgram == fileType) {
 		MRNXTStartProgramCommand *comm = [[MRNXTStartProgramCommand alloc] init];
 		comm.filename = name;
 		
 		[_device enqueueCommand:comm responseBlock:NULL];
 	}
-	else if ([name rangeOfString:@"rso"].location != NSNotFound) {
+	else if (NXTFileSound == fileType) {
 		MRNXTPlaySoundFileCommand *comm = [[MRNXTPlaySoundFileCommand alloc] init];
 		comm.loop = NO;
 		comm.filename = name;

@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  NXT Browser
+
+  Created by Jeff Sawatzky on 2012-12-19.
+
+*/
+"NXTFileUserProgram" = "Program (User)";
+"NXTFileSampleProgram" = "Program (Sample)";
+"NXTFileSystemProgram" = "Program (System)";
+"NXTFileSound" = "Sound";
+"NXTFileImage" = "Image";
+
+"ConnectedStringFormat" = "Connected to %1@ with %2.2f KB of free space";
+"LoadingInformation" = "Loading information...";
